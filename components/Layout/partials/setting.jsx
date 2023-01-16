@@ -1,8 +1,8 @@
 function Setting({togglesetting,settogglesetting}) {
     return ( 
-        //  <!-- Modal Custom Settings-->
-         <div className={`modal fade right ${togglesetting? "show ": ""}`} style={togglesetting? {display: "block" }: {display: "block"}} id="Settingmodal" tabIndex={-1}  aria-hidden="true" role="dialog">
-         <div className="modal-dialog  modal-sm">
+        //  <!-- Modal Custom Settings--> role="dialog"style={togglesetting? {display: "block" }: {display: "block"}}
+         <div className={`modal fade right ${togglesetting? "show d-block": "d-none"}`} id="Settingmodal" tabIndex={-1}  aria-hidden="true" role="dialog">
+         <div className="modal-dialog  modal-sm"> 
              <div className="modal-content">
                  <div className="modal-header">
                      <h5 className="modal-title">Custom Settings</h5>
