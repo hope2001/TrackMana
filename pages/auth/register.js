@@ -6,10 +6,11 @@ import countries from "../../data/country-code";
 import { useRouter } from "next/router";
 import { accountService } from "@/src/services/accountServices";
 
+import { ErrorMessage } from "@hookform/error-message";
 
 function Register() {
   const [companitabvisible, setcompanitabvisible] = useState(false);
-//   const [getindicatif, setgetindicatif] = useState("");
+  //   const [getindicatif, setgetindicatif] = useState("");
   const [contact, setcontact] = useState("");
   const [Message, setMessage] = useState("");
   const [Password, setPassword] = useState("");
@@ -18,75 +19,73 @@ function Register() {
   const router = useRouter();
   const {
     handleSubmit,
-    register,resetField,
+    register,
+    resetField,
     formState: { isValid, errors },
   } = useForm({ mode: "onChange" });
 
   const role = ["CEO", "CTO", "CFO", "Manager", "Worker"];
 
-  let body 
+  let body;
 
-  const handleRegistration = async (data,e) => {
+  const handleRegistration = async (data, e) => {
     e.preventDefault();
     console.log(data);
-    if(data.company_label === undefined){
-        body = {
-            firstName: data.firstname,
-            lastName: data.lastname,
-            gender: data.gender,
-            email: data.email,
-            phone: data.phone_indicative +""+ data.phone,
-            password: data.password,
-            role: data.user_role,}
-    }else{
-        body = {
-            firstName: data.firstname,
-            lastName: data.lastname,
-            gender: data.gender,
-            email: data.email,
-            phone: data.phone_indicative + data.phone,
-            password: data.password,
-            role: data.user_role,
-            company: {
-                label: data.company_label,
-                description: data.company_description,
-                ein: data.company_ein,
-                rccm: data.company_rccm,
-                ifu: data.company_ifu
-
-            }}
+    if (data.company_label === undefined) {
+      body = {
+        firstName: data.firstname,
+        lastName: data.lastname,
+        gender: data.gender,
+        email: data.email,
+        phone: data.phone_indicative + "" + data.phone,
+        password: data.password,
+        role: data.user_role,
+      };
+    } else {
+      body = {
+        firstName: data.firstname,
+        lastName: data.lastname,
+        gender: data.gender,
+        email: data.email,
+        phone: data.phone_indicative + data.phone,
+        password: data.password,
+        role: data.user_role,
+        company: {
+          label: data.company_label,
+          description: data.company_description,
+          ein: data.company_ein,
+          rccm: data.company_rccm,
+          ifu: data.company_ifu,
+        },
+      };
     }
-    await accountService.register(body)
-    .then(response => {
-        console.log(response.data)
-        console.log(response.status)
-        resetField('firstname');
-        resetField('lastname');
-        resetField('gender');
-        resetField('email');
-        resetField('phone_indicative');
-        resetField('phone');
-        resetField('password');
-        resetField('user_role');
-        if(response.status === 200){
-          router.push('/auth/login')
+    await accountService
+      .register(body)
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        resetField("firstname");
+        resetField("lastname");
+        resetField("gender");
+        resetField("email");
+        resetField("phone_indicative");
+        resetField("phone");
+        resetField("password");
+        resetField("user_role");
+        if (response.status === 200) {
+          router.push("/auth/login");
         }
-        
-    })
-    .catch(error => {
-        console.log(error)
+      })
+      .catch((error) => {
+        console.log(error);
         console.log(error.response.data.message);
-        console.error(error.response.data);    // ***
-        console.error(error.response.status);  // ***
+        console.error(error.response.data); // ***
+        console.error(error.response.status); // ***
         console.error(error.response.headers);
-        if(error.response.status === 404){
-          alert("system error occur 404 Not Found")
+        if (error.response.status === 404) {
+          alert("system error occur 404 Not Found");
         }
-
-
-    });
-
-
+      });
   };
   const passDigital = new RegExp(/^([^0-9, S]*)$/);
   return (
@@ -105,24 +104,28 @@ function Register() {
                         <label className="form-label fs-6">Firstname</label>
                         <input
                           {...register("firstname", {
-                            required: true,
+                            required: "This is required",
                             pattern: passDigital,
                           })}
                           type="text"
                           className="form-control"
                           required
                         />
+                        <ErrorMessage errors={errors} name="firstname" render={({ message }) => <p>{message}</p>} />
+                       
                       </div>
                       <div className="mb-3">
                         <label className="form-label fs-6">Lastname</label>
                         <input
                           {...register("lastname", {
-                            required: true,
+                            required: "This is required",
                             pattern: passDigital,
                           })}
                           type="text"
                           className="form-control"
                         />
+                        <ErrorMessage errors={errors} name="lastname" render={({ message }) => <p>{message}</p>} />
+                       
                       </div>
                       <div className="mb-3">
                         <span className="form-label fs-6">Gender</span>
@@ -148,11 +151,12 @@ function Register() {
                           />
                           <label className="form-check-label">Female</label>
                         </div>
+                        <ErrorMessage errors={errors} name="gender" render={({ message }) => <p>{message}</p>} />
+                       
                       </div>
                       <div className="mb-3">
                         <label className="form-label fs-6">Mobile</label>
                         <div className="input-group mb-3">
-
                           <input
                             {...register("phone_indicative")}
                             className="form-control"
@@ -171,23 +175,32 @@ function Register() {
                             ))}
                           </datalist>
                           <input
-                            {...register("phone")}
+                            {...register("phone", {
+                              required: "This is required",
+                            })}
                             onChange={(e) => setcontact(e.target.value)}
                             value={contact}
                             type="text"
                             className="form-control"
                           />
                         </div>
+                        <ErrorMessage errors={errors} name="phone_indicative" render={({ message }) => <p>{message}</p>} />
+                        <ErrorMessage errors={errors} name="phone" render={({ message }) => <p>{message}</p>} />
+                       
                       </div>
                       <div className="mb-3">
                         <label className="form-label fs-6">Email address</label>
                         <input
-                          {...register("email", { required: true })}
+                          {...register("email", {
+                            required: "email is required",
+                          })}
                           type="email"
                           className="form-control"
                         />
+                        <ErrorMessage errors={errors} name="email" render={({ message }) => <p>{message}</p>} />
+                       
                       </div>
-                      <div className={Pwderr? "alert-warning p-4 my-2":""}>
+                      <div className={Pwderr ? "alert-warning p-4 my-2" : ""}>
                         {Pwderr && (
                           <small className="text-danger">
                             Password & Confirm password must be same !
@@ -204,13 +217,17 @@ function Register() {
                             }
                           ></i>
                           <input
-                            {...register("password", { required: true })}
+                            {...register("password", {
+                              required: "This is required",min:8
+                            })}
                             value={Password}
                             onChange={(e) => setPassword(e.target.value)}
                             type={showPwd ? "text" : "password"}
                             className="form-control"
                             required
                           />
+                          <ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />
+                       
                         </div>
                         <div className="mb-3">
                           <label className="form-label fs-6">
@@ -251,7 +268,8 @@ function Register() {
                               {...register("company_label")}
                               type="text"
                               className="form-control"
-                            />
+                            /><ErrorMessage errors={errors} name="company_label" render={({ message }) => <p>{message}</p>} />
+                       
                           </div>
 
                           <div className="mb-3">
@@ -263,6 +281,8 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
+                            <ErrorMessage errors={errors} name="company_description" render={({ message }) => <p>{message}</p>} />
+                       
                           </div>
 
                           <div className="mb-3">
@@ -272,6 +292,8 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
+                            <ErrorMessage errors={errors} name="company_ein" render={({ message }) => <p>{message}</p>} />
+                       
                           </div>
                           <div className="mb-3">
                             <label className="form-label fs-6">RCCM</label>
@@ -280,6 +302,8 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
+                            <ErrorMessage errors={errors} name="company_rccm" render={({ message }) => <p>{message}</p>} />
+                       
                           </div>
 
                           <div className="mb-3">
@@ -289,6 +313,8 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
+                            <ErrorMessage errors={errors} name="company_ifu" render={({ message }) => <p>{message}</p>} />
+                       
                           </div>
                           <div className="mb-3">
                             <label className="form-label fs-6">Role</label>
@@ -305,6 +331,8 @@ function Register() {
                                 </option>
                               ))}
                             </select>
+                            <ErrorMessage errors={errors} name="user_role" render={({ message }) => <p>{message}</p>} />
+                       
                           </div>
                         </div>
                       )}
@@ -324,13 +352,6 @@ function Register() {
                   </div>
                 </div>
               </div>
-              {/* <div className="tab-pane fade" id="Mobile">
-                                        <div className="card">
-                                            <div className="card-body p-4">
-                                           
-                                            </div>
-                                        </div>
-                                    </div> */}
             </div>
             <Link className="text-primary" href="/auth/signin" title="Login">
               Already registered?{" "}

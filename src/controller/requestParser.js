@@ -1,51 +1,38 @@
+import { useState } from "react";
+import { accountService } from "../services";
 
+export const RequestToResponse = async (request) => {
+  // console.log("request---->", request);
+  if (accountService.isLogged)
+{  
+  
+  try {
+    let res = await request;
+    console.log(" ResponsseParser {Success}------->>>>>", res.data);
+    // console.log(" ResponsseParser {Success}------->>>>>", res.statusText);
+    let result = res.data
+    let resultStatus = res.statusText
+    let errorStatus = null;
+    let errorMessage = null
+    return {resultStatus, result, errorStatus, errorMessage};
+  } catch (err) {
+    if (err.response) {
+      // The client was given an error response (5xx, 4xx)
+      // console.log(err.response.data);
+      // console.log(err.response.status);
+      // console.log(err.response.headers);
 
-export const  RequestToResponse =async (request)=>{
-    console.log("request---->", request);
-    try {
-        let res = await request.data
-        console.log(" ResponsseParser {Success}------->>>>>",res);
-        return res
-    } catch (err) {
-        if (err.response) {
-            // The client was given an error response (5xx, 4xx)
-            console.log(err.response.data);
-            console.log(err.response.status);
-            console.log(err.response.headers);
-        } else if (err.request) {
-            // The client never received a response, and the request was never left
-        } else {
-            // Anything else
-        }
-        console.error(" ResponsseParser {error}------->>>>>",err.message);
-        return err.message;
+    } else {
+      // Anything else
     }
-    
-    // await request.then((res) => {
-    //     console.log(" ResponsseParser {Success}------->>>>>",res.data);
-    //     return res.data
-    //   })
-    //   .catch((error) => {
-    //     console.error(" ResponsseParser {error}------->>>>>",error.message);
-    //     return error.message;
-    //   });
+    console.error(" ResponsseParser {error}------->>>>>", err);
+    let result = null
+    let resultStatus = null
+    let errorStatus = err.status;
+    // let errorMessage = err.response.data.message
+    let errorMessage = err.message
+    return {resultStatus, result, errorStatus, errorMessage};
+  }
+
 }
-
-
-
-// try {
-//     let res = await axios.get('/my-api-route');
-
-//     // Work with the response...
-// } catch (err) {
-//     if (err.response) {
-//         // The client was given an error response (5xx, 4xx)
-//         console.log(err.response.data);
-//         console.log(err.response.status);
-//         console.log(err.response.headers);
-//     } else if (err.request) {
-//         // The client never received a response, and the request was never left
-//     } else {
-//         // Anything else
-//     }
-// }
+};

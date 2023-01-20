@@ -6,7 +6,7 @@ import { accountService } from './accountServices';
 
 // Paramétrage de base d'axios
 const Axios = axios.create({
-    baseURL: api
+    baseURL: 'https://ttapi.bourjon.com'
 })
 
 
@@ -26,12 +26,11 @@ Axios.interceptors.request.use(request => {
 Axios.interceptors.response.use(response => {
     return response
 }, error => {
-    // if(error.response.status === 401){
-    //     alert("access non autorisé")
-    // }
-    if(error.response.status === 403){
+    if(error.response.status === 401){
+        alert("access non autorisé")
+    }
+   else if(error.response.status === 403){
         accountService.logout()
-        // window.location = '/auth/signin'
         alert("Votre session  à expirée")
         Router.push('/auth/login')
     }else{

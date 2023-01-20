@@ -1,39 +1,63 @@
 import Layout from "@/components/Layout/layout";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { api, salt } from "@/src/services/apip";
 import Loader from "@/components/Layout/partials/Loader";
 import { RequestToResponse } from "@/src/controller/requestParser";
 import { accountService } from "@/src/services/accountServices";
 import { employeeService } from "@/src/services";
+import useFetch from "@/src/controller/useFetch";
+import Editemployee from "@/components/employee/Editemployee";
+import Deleteemployee from "@/components/employee/Deleteemployee";
+import Addemployee from "@/components/employee/Addemployee";
+import { ApiContext } from "@/src/controller/apiContext";
+import { useRouter } from "next/router";
+
 // accountService.getConnectedUserInfo()
 function Employee() {
+  const { companies,activecompany,setactivecompany, showToastMessage} = useContext(ApiContext);
   const [usersList, setusersList] = useState([]);
+  const [userisLoading, setuserisLoading] = useState(true);
+  
   const [company, setcompany] = useState([]);
-  const [isLoading, setisLoading] = useState(true);
-  // let body = { companyId: 1 };
+  const Router = useRouter()
   const [currentid, setcurrentid] = useState("");
+  const [forEdit, setforEdit] = useState([]);
+  const [toggleEdit, settoggleEdit] = useState(false);
 
-  const [idtoggler, setidtoggler] = useState(false);
+  const [forDelete, setforDelete] = useState([]);
+  const [toggleDelete, settoggleDelete] = useState(false);
+
+  const [toggleAdd, settoggleAdd] = useState(false);
+
+  const {name, age, happyBirthday} = useContext(ApiContext);
 
   useEffect( () => {
-    if(typeof document !== undefined){
           (async ()=>{
-        //  console.warn(localStorage.getItem('TTrack-token'))
-
-        // parseInt(company.map((emp) => emp.Employees.map((com) => com.Company.id)))
-        let body = {
-          companyId: 1,
+          let body = {
+          companyId: activecompany.id
         };
-         
-         alert(JSON.stringify(body))
-
-         setusersList(await RequestToResponse( await employeeService.getAllEmployees(body)))
-
+        alert(JSON.stringify(body))
+        if (body.companyId === undefined) {
+          Router.push('/')
+        }
+        const {resultStatus, result, errorStatus, errorMessage} = await RequestToResponse( await employeeService.getAllEmployees(body))
+        if(result !== null && resultStatus === "OK"){
+        setusersList(result),
+        setuserisLoading(false)
+        }
     })()
-    }
 
   }, [])
+  function modalForEdit(employee) {
+    setforEdit([employee])
+    settoggleEdit(true)
+  }
+
+  function modalForDelete(employee) {
+    setforDelete([employee])
+    settoggleDelete(true)
+  }
 
   return (
     <Layout>
@@ -47,20 +71,14 @@ function Employee() {
                   <button
                     type="button"
                     className="btn btn-dark btn-set-task w-sm-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addemp"
+                    onClick={()=>(settoggleAdd(true))}
                   >
                     <i className="icofont-plus-circle me-2 fs-6"></i>Add
                     Employee
                   </button>
                 </div>
               </div>
-              <div>
-                {JSON.stringify(
-                  company.map((emp) =>
-                    emp.Employees.map((com) => com.Company.id)
-                  )
-                )}
+              <div> {name } {age} <button onClick={()=>happyBirthday()}>btn incrr</button>
               </div>
             </div>
           </div>
@@ -86,10 +104,9 @@ function Employee() {
                       </tr>
                     </thead>
                     <tbody>
-                      {usersList.map((employee) => (
+                      { userisLoading ? <Loader/> : usersList.map((employee, index) => (
                         <tr key={employee.User.id}>
                           <td>
-                            {/* assets/images/xs/avatar1.svg */}
                             <img
                               className="avatar rounded-circle"
                               src={api + employee.User.picture}
@@ -144,20 +161,21 @@ function Employee() {
                               aria-label="Basic outlined example"
                             >
                               <button
+                              role="button"
+                              id={`${index}btned`}
                                 type="button"
                                 className="btn btn-sm btn-outline-light border-dark"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editemp"
-                                onClick={() => setcurrentid(employee.userId)}
+                                // data-bs-toggle="modal"
+                                onClick={() => modalForEdit(employee)}
                               >
                                 <i className="bi bi-pen text-success"></i>
                               </button>
                               <button
+                              role="button"
+                              id={`${index}btndel`}
                                 type="button"
                                 className="btn btn-sm btn-outline-dark deleterow"
-                                data-bs-toggle="modal"
-                                data-bs-target="#deleteemp"
-                                onClick={() => setcurrentid(employee.userId)}
+                                onClick={() => modalForDelete(employee)}
                               >
                                 <i className="bi bi-trash text-danger"></i>
                               </button>
@@ -167,17 +185,16 @@ function Employee() {
                       ))}
                     </tbody>
                   </table>
-                  {currentid}
-                  {isLoading ? <Loader /> : ""} {currentid}
+                  {/* {isLoading ? <Loader /> : ""} */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* <Addemployee />
-      <Editemployee id={currentid || 1} />
-      <Deleteemployee id={currentid || 1} /> */}
+      <Addemployee toggleAdd={toggleAdd} settoggleAdd={settoggleAdd} />
+      <Editemployee toggleEdit={toggleEdit} settoggleEdit={settoggleEdit} forEdit={forEdit} />
+      <Deleteemployee toggleDelete={toggleDelete} settoggleDelete={settoggleDelete} forEdit={forDelete} />
     </Layout>
   );
 }

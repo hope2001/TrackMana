@@ -1,21 +1,14 @@
 import Axios from './callerservice'
+
 /**
  * Récupération de la liste des employés
  * @param {object} body
  * @returns {Promise}
  */
 let getAllEmployees = (body) => {
+    // alert('get', JSON.stringify(body))
     return Axios.post('/employees/getEmployees', body)
-} 
-
-/**
- * Récupération d'un employé
- * @param {object} cid 
- * @returns {Promise}
- */
-// let getEmployee = (cid) => {
-//     return Axios.post('/employees/getEmployee', cid)
-// }
+}
 
 /**
  * Ajout d'un employé
@@ -55,6 +48,6 @@ let deleteEmployee = (cid) => {
 
 // Déclaration des services pour import
 export const employeeService = {
-    getAllEmployees, addEmployee, updateEmployee, deleteEmployee
+    getAllEmployees, addEmployee, updateEmployee, deleteEmployee,undeleteEmployee 
 }
 // getEmployee

@@ -48,7 +48,6 @@ function Sidebar({toggleside}) {
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col2 ? "":"collapse"} `} id="menu-order">
                             <li><Link className="ms-link" href="/projectlist">Project List</Link></li>
-                            <li><Link className="ms-link" href="/employee">Employee</Link></li>
                             <li><Link className="ms-link" href="/task.html">Task Progress</Link></li>
                             <li><Link className="ms-link" href="/tickets">Ticket List</Link></li>
                             <li><Link className="ms-link" href="/ticket-detail">Ticket Details</Link></li>
@@ -62,6 +61,7 @@ function Sidebar({toggleside}) {
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col3 ? "":"collapse"} `} id="menu-company">
                             <li><Link className="ms-link" href="/companies/companiesList">My Companies</Link></li>
+                            <li><Link className="ms-link" href="/employee">Employee</Link></li>
                             <li><Link className="ms-link" href="/companies/validations">Validations</Link></li>
                             <li><Link className="ms-link" href="/companies/departement">Departements</Link></li>
                         </ul>
@@ -86,14 +86,14 @@ function Sidebar({toggleside}) {
                             <li><Link className="ms-link" href="/auth/login">Login</Link></li>
                             <li><Link className="ms-link" href="/auth/register"> Register</Link></li>
                             <li><Link className="ms-link" href="/auth/login"> Rlog2</Link></li>
-                            <li><Link className="ms-link" href="" onClick={(e)=>(e.preventDefault())} > Logout</Link></li>
+                            <li><Link className="ms-link" href="" onClick={(e)=>(e.preventDefault(), accountService.logout())} > Logout</Link></li>
                         </ul>
                     </li>
                     
                 </ul>
                 
                 {/* <!-- Menu: menu collepce btn --> */}
-                <button type="button" onClick={()=>(settinibar(!tinibar))} className="btn btn-link sidebar-mini-btn text-light">
+                <button id="tinibtn" aria-label="tinibtn" role="button" type="button" onClick={()=>(settinibar(!tinibar))} className="btn btn-link sidebar-mini-btn text-light">
                     <span className="ms-2"><i className="icofont-bubble-right"></i></span>
                 </button>
 

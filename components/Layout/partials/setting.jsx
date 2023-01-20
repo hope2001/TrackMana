@@ -1,7 +1,9 @@
+import { accountService } from "@/src/services";
+
 function Setting({togglesetting,settogglesetting}) {
     return ( 
         //  <!-- Modal Custom Settings--> role="dialog"style={togglesetting? {display: "block" }: {display: "block"}}
-         <div className={`modal fade right ${togglesetting? "show d-block": "d-none"}`} id="Settingmodal" tabIndex={-1}  aria-hidden="true" role="dialog">
+         <div aria-labelledby="modal" className={`modal fade right ${togglesetting? "show d-block": "d-none"}`} id="Settingmodal" tabIndex={-1}  aria-hidden="true" role="dialog">
          <div className="modal-dialog  modal-sm"> 
              <div className="modal-content">
                  <div className="modal-header">
@@ -33,31 +35,31 @@ function Setting({togglesetting,settogglesetting}) {
                              <ul className="list-group list-unstyled mt-1">
                                  <li className="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
                                      <label>Primary Color</label>
-                                     <button id="primaryColorPicker" className="btn bg-primary avatar xs border-0 rounded-0"></button>
+                                     <button role="button" title="button" id="primaryColorPicker" className="btn bg-primary avatar xs border-0 rounded-0"></button>
                                  </li>
                                  <li className="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
                                      <label>Secondary Color</label>
-                                     <button id="secondaryColorPicker" className="btn bg-secondary avatar xs border-0 rounded-0"></button>
+                                     <button role="button" title="button" id="secondaryColorPicker" className="btn bg-secondary avatar xs border-0 rounded-0"></button>
                                  </li>
                                  <li className="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
                                      <label className="text-muted">Chart Color 1</label>
-                                     <button id="chartColorPicker1" className="btn chart-color1 avatar xs border-0 rounded-0"></button>
+                                     <button role="button" title="button" id="chartColorPicker1" className="btn chart-color1 avatar xs border-0 rounded-0"></button>
                                  </li>
                                  <li className="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
                                      <label className="text-muted">Chart Color 2</label>
-                                     <button id="chartColorPicker2" className="btn chart-color2 avatar xs border-0 rounded-0"></button>
+                                     <button role="button" title="button" id="chartColorPicker2" className="btn chart-color2 avatar xs border-0 rounded-0"></button>
                                  </li>
                                  <li className="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
                                      <label className="text-muted">Chart Color 3</label>
-                                     <button id="chartColorPicker3" className="btn chart-color3 avatar xs border-0 rounded-0"></button>
+                                     <button role="button" title="button" id="chartColorPicker3" className="btn chart-color3 avatar xs border-0 rounded-0"></button>
                                  </li>
                                  <li className="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
                                      <label className="text-muted">Chart Color 4</label>
-                                     <button id="chartColorPicker4" className="btn chart-color4 avatar xs border-0 rounded-0"></button>
+                                     <button role="button" title="button" id="chartColorPicker4" className="btn chart-color4 avatar xs border-0 rounded-0"></button>
                                  </li>
                                  <li className="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
                                      <label className="text-muted">Chart Color 5</label>
-                                     <button id="chartColorPicker5" className="btn chart-color5 avatar xs border-0 rounded-0"></button>
+                                     <button role="button" title="button" id="chartColorPicker5" className="btn chart-color5 avatar xs border-0 rounded-0"></button>
                                  </li>
                              </ul>
                          </div>

@@ -7,14 +7,12 @@ import Router from "next/router";
 import { api, appkey } from "@/src/services/apip";
 import { accountService } from "@/src/services/accountServices";
 function Login() {
-
   const [email, setEmail] = useState("");
   const [device, setDevice] = useState("");
   const [showpwd, setshowpwd] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [toggletab, settoggletab] = useState("email");
-
 
   const {
     handleSubmit,
@@ -30,15 +28,11 @@ function Login() {
     resetField: resetField2,
   } = useForm({ mode: "onChange" });
 
-
   useEffect(() => {
     setDevice(window.navigator.appCodeName);
   }, []);
 
-  useEffect(()=>(
-    setErrMsg(errMsg)
-  ),[errMsg])
-
+  useEffect(() => setErrMsg(errMsg), [errMsg]);
 
   const handleLogin = async (data) => {
     // e.preventDefault();
@@ -59,22 +53,22 @@ function Login() {
         device: device,
       };
     }
-    accountService.login(body)
-            .then(res => {
-                // Sauvegarde du token et envoi vers le dashboard
-                console.log(res.data);
-                console.warn(res);
-                accountService.saveToken(res.data.access_token)
-                // * reset the inputs fields
-                resetField("password");
-                resetField("email");
-                resetField2("phone_indicative");
-                resetField2("phone");
-                resetField2("password");
-                Router.push("/")
-            })
-            .catch(error => console.error(error.response.data.message))
-
+    accountService
+      .login(body)
+      .then((res) => {
+        // Sauvegarde du token et envoi vers le dashboard
+        console.log(res.data);
+        console.warn(res);
+        accountService.saveToken(res.data.access_token);
+        // * reset the inputs fields
+        resetField("password");
+        resetField("email");
+        resetField2("phone_indicative");
+        resetField2("phone");
+        resetField2("password");
+        Router.push("/");
+      })
+      .catch((error) => console.error(error.response.data.message));
   };
 
   return (
@@ -84,34 +78,42 @@ function Login() {
           <div className="d-flex flex-column p-2">
             <h1>Account Login</h1>
             <span>
-              Welcome back! Log In with your Email, Phone number or QR code 
+              Welcome back! Log In with your Email, Phone number or QR code
               {typeof toggletab}
             </span>
-            {/* <span className="w-25 overflow" > {(Cookies.get("TTracker_currentUser"))} </span> */}
             <ul className="nav nav-pills mt-4" role="tablist">
               <li className="nav-item">
                 <a
-                  className={`nav-link ${toggletab === "email"? " active" : " "} `}
+                  className={`nav-link ${
+                    toggletab === "email" ? " active" : " "
+                  } `}
                   data-bs-toggle="tab"
                   role="tab"
-                  onClick={()=>(settoggletab("email"))}
+                  onClick={() => settoggletab("email")}
                 >
                   Email
                 </a>
               </li>
               <li className="nav-item">
                 <a
-                   className={`nav-link ${toggletab === "phone"? " active" : " "} `}
+                  className={`nav-link ${
+                    toggletab === "phone" ? " active" : " "
+                  } `}
                   data-bs-toggle="tab"
                   role="tab"
-                  onClick={()=>(settoggletab("phone"))}
+                  onClick={() => settoggletab("phone")}
                 >
                   Mobile
                 </a>
               </li>
             </ul>
             <div className="tab-content mt-4 mb-3">
-              <div className={`tab-pane fade ${toggletab ==="email" ? " show active " : " " }} `} id="Email">
+              <div
+                className={`tab-pane fade ${
+                  toggletab === "email" ? " show active " : " "
+                }} `}
+                id="Email"
+              >
                 <div className="card">
                   <div className="card-body p-4">
                     <form key={1} onSubmit={handleSubmit(handleLogin)}>
@@ -131,9 +133,17 @@ function Login() {
                         )}
                       </div>
                       <div className="mb-3">
-                        <label className="form-label fs-6">Password</label> <i onClick={()=>(setshowpwd(!showpwd))} className={showpwd? "bi bi-eye-slash px-3 pb-2": "px-3 pb-2 bi bi-eye"}></i>
+                        <label className="form-label fs-6">Password</label>{" "}
+                        <i
+                          onClick={() => setshowpwd(!showpwd)}
+                          className={
+                            showpwd
+                              ? "bi bi-eye-slash px-3 pb-2"
+                              : "px-3 pb-2 bi bi-eye"
+                          }
+                        ></i>
                         <input
-                          type={showpwd? "password": "text"}
+                          type={showpwd ? "password" : "text"}
                           className="form-control"
                           {...register("password", {
                             required: true,
@@ -160,7 +170,12 @@ function Login() {
                   </div>
                 </div>
               </div>
-              <div  className={`tab-pane fade ${toggletab === "phone" ? " show active " : " " }} `} id="Mobile">
+              <div
+                className={`tab-pane fade ${
+                  toggletab === "phone" ? " show active " : " "
+                }} `}
+                id="Mobile"
+              >
                 <div className="card">
                   <div className="card-body p-4">
                     <form key={2} onSubmit={handleSubmit2(handleLogin)}>
@@ -196,13 +211,21 @@ function Login() {
                         </div>
                       </div>
                       <div className="mb-3">
-                      <label className="form-label fs-6">Password</label> <i onClick={()=>(setshowpwd(!showpwd))} className={showpwd? "bi bi-eye-slash px-3 pb-2": "px-3 pb-2 bi bi-eye"}></i>
+                        <label className="form-label fs-6">Password</label>{" "}
+                        <i
+                          onClick={() => setshowpwd(!showpwd)}
+                          className={
+                            showpwd
+                              ? "bi bi-eye-slash px-3 pb-2"
+                              : "px-3 pb-2 bi bi-eye"
+                          }
+                        ></i>
                         <input
                           {...register2("password", {
                             required: true,
                             minLength: 8,
                           })}
-                          type={showpwd? "password": "text"}
+                          type={showpwd ? "password" : "text"}
                           className="form-control"
                         />
                         {errors2.password && (

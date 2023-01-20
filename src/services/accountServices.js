@@ -3,8 +3,6 @@ import jwt_decode from 'jwt-decode'
 import { useEffect } from 'react'
 import  Router  from 'next/router'
 import { salt } from './apip'
-
-
 /**
  * Connexion vers l'API
  * @param {object} udata
@@ -84,11 +82,11 @@ let saveToken = (token) => {
     return encodeURI(salt + o.join(''));
 }
 
-
 /**
  * recuperation des données personnelles de l'utilisateur connecté
  */
 let getConnectedUserInfo = ()=>{
+    if(isLogged){
     let token = getTokenInfo()  
     // console.log(token);
     // alert(token.payload)
@@ -96,6 +94,7 @@ let getConnectedUserInfo = ()=>{
     let dtoken = decryptToken(token.payload,salt)
     return dtoken
 //    console.log(dtoken);
+}
 }
 
 
@@ -107,15 +106,14 @@ let getConnectedUserInfo = ()=>{
  * Suppression du token du localStorage
  */
 let logout = () => {
-    // // useEffect(() => {
-    //     if (typeof window !== 'undefined') {
+
+       if (typeof window !== 'undefined')
+       {
         alert('logout')
         localStorage.removeItem('TTrack-token')
         Router.push("/auth/login")
-        // }
-    // }, [])
-    
-}
+        }
+    }
 
 /**
  * Etat de la présence d'un token en localStorage
@@ -123,9 +121,11 @@ let logout = () => {
  */
 let isLogged = () => {
     if (typeof window !== 'undefined') {
-        alert('isLogedIn')
+        // console.log('isLogedIn')
         let token = localStorage.getItem('TTrack-token')
-        return !!token
+           return !!token
+      
+        
     }
         }
     
@@ -136,7 +136,7 @@ let isLogged = () => {
  */
 let getToken = () => {
     if (typeof window !== 'undefined') {
-        alert('getToken')
+        // console.log('getToken')
         // alert(localStorage.getItem('TTrack-token'))
         return localStorage.getItem('TTrack-token')
       }
