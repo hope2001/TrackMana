@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { employeeService } from '@/src/services';
+import { ApiContext } from "@/src/controller/apiContext";
+import {api} from "@/src/services"
 
 function Addemployee({toggleAdd,settoggleAdd}) {
   const empltype = ["CEO", "CFO", "CTO", "Manager", "Worker"];
@@ -10,6 +12,8 @@ function Addemployee({toggleAdd,settoggleAdd}) {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
+
+  const { companies, activecompany, setactivecompany, isLoading, loggedUser } = useContext(ApiContext);
 
   const onSubmit = async (data) => {
     alert(JSON.stringify(data))
@@ -133,14 +137,19 @@ function Addemployee({toggleAdd,settoggleAdd}) {
                 <div className="row g-3 mb-3">
 
                 <div className="col">
-                    <label className="form-label">Company ID</label>
-                    <select
+                    <label className="form-label">Company</label>
+                        
+                         
+                            <select
                       {...register("company")}
                       className="form-select"
                       aria-label="Default select company"
-                    >
-                      <option value="1">Website Design</option>
-                    </select>
+                    > {companies.map((company, index)=>(
+                      <option key={index} className="p-3"  style={{backgroundImage:`url(${api+company.logo})`}} value={company.id}> {company.label}  </option>
+                     ))
+                        } </select>
+                        
+                    
                   </div>
                   <div className="col">
                     <label className="form-label">Department</label>

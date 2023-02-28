@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import Router from "next/router";
 import { api, appkey } from "@/src/services/apip";
 import { accountService } from "@/src/services/accountServices";
+import { ApiContext } from "@/src/controller/apiContext";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [device, setDevice] = useState("");
@@ -13,6 +15,8 @@ function Login() {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [toggletab, settoggletab] = useState("email");
+
+  const {age, showToastMessage } = useContext(ApiContext);
 
   const {
     handleSubmit,
@@ -60,6 +64,7 @@ function Login() {
         console.log(res.data);
         console.warn(res);
         accountService.saveToken(res.data.access_token);
+        showToastMessage("Logged with Success", "success")
         // * reset the inputs fields
         resetField("password");
         resetField("email");
@@ -68,7 +73,9 @@ function Login() {
         resetField2("password");
         Router.push("/");
       })
-      .catch((error) => console.error(error.response.data.message));
+      .catch((error) => {
+         if(error.response) console.error(error.response.data.message);
+         if(error.response) alert(error.response.data.message) });
   };
 
   return (
@@ -79,7 +86,7 @@ function Login() {
             <h1>Account Login</h1>
             <span>
               Welcome back! Log In with your Email, Phone number or QR code
-              {typeof toggletab}
+              {typeof toggletab} 
             </span>
             <ul className="nav nav-pills mt-4" role="tablist">
               <li className="nav-item">

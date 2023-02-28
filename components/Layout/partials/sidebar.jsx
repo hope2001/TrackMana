@@ -34,7 +34,7 @@ function Sidebar({toggleside}) {
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col1 ? "":"collapse"} `} id="menu-report">
-                            <li><Link className="ms-link" href="/attendance">Attendance</Link></li>
+                            <li><Link className="ms-link" href="/Reports/attendance">Attendance</Link></li>
                             <li><Link className="ms-link" href="/hourstrack">Hours Tracked</Link></li>
                             <li><Link className="ms-link" href="/timeline">Timeline</Link></li>
                             <li><Link className="ms-link" href="/employee-logs">Employee Logs</Link></li>
@@ -47,10 +47,11 @@ function Sidebar({toggleside}) {
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col2 ? "":"collapse"} `} id="menu-order">
-                            <li><Link className="ms-link" href="/projectlist">Project List</Link></li>
-                            <li><Link className="ms-link" href="/task.html">Task Progress</Link></li>
+                            <li><Link className="ms-link" href="/projects">Project List</Link></li>
+                            <li><Link className="ms-link" href="/tasks">Tasks </Link></li>
+                            <li><Link className="ms-link" href="/tasks">Task Progress</Link></li>
                             <li><Link className="ms-link" href="/tickets">Ticket List</Link></li>
-                            <li><Link className="ms-link" href="/ticket-detail">Ticket Details</Link></li>
+                            {/* <li><Link className="ms-link" href="/ticket-detail">Ticket Details</Link></li> */}
                             <li><Link className="ms-link" href="/timesheet">Timesheet</Link></li>
                         </ul>
                     </li>
@@ -72,6 +73,7 @@ function Sidebar({toggleside}) {
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col4 ? "":"collapse"} `} id="app">
+                            <li><Link className="ms-link" href="/categories">Categories</Link></li>
                             <li><Link className="ms-link" href="/calendar">Calandar</Link></li>
                             <li><Link className="ms-link" href="/chat"> Communication</Link></li>
                         </ul>

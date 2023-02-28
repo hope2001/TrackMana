@@ -8,7 +8,7 @@ export const RequestToResponse = async (request) => {
   
   try {
     let res = await request;
-    console.log(" ResponsseParser {Success}------->>>>>", res.data);
+    // console.log(" ResponsseParser {Success}------->>>>>", res.data);
     // console.log(" ResponsseParser {Success}------->>>>>", res.statusText);
     let result = res.data
     let resultStatus = res.statusText

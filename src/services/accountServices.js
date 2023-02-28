@@ -109,7 +109,7 @@ let logout = () => {
 
        if (typeof window !== 'undefined')
        {
-        alert('logout')
+        // alert('logout')
         localStorage.removeItem('TTrack-token')
         Router.push("/auth/login")
         }

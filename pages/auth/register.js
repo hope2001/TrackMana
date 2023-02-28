@@ -17,6 +17,7 @@ function Register() {
   const [Pwderr, setPwderr] = useState(false);
   const [showPwd, setshowPwd] = useState(false);
   const router = useRouter();
+  var urlId = router.query["id"];
   const {
     handleSubmit,
     register,
@@ -111,8 +112,11 @@ function Register() {
                           className="form-control"
                           required
                         />
-                        <ErrorMessage errors={errors} name="firstname" render={({ message }) => <p>{message}</p>} />
-                       
+                        <ErrorMessage
+                          errors={errors}
+                          name="firstname"
+                          render={({ message }) => <p>{message}</p>}
+                        />
                       </div>
                       <div className="mb-3">
                         <label className="form-label fs-6">Lastname</label>
@@ -124,9 +128,23 @@ function Register() {
                           type="text"
                           className="form-control"
                         />
-                        <ErrorMessage errors={errors} name="lastname" render={({ message }) => <p>{message}</p>} />
-                       
+                        <ErrorMessage
+                          errors={errors}
+                          name="lastname"
+                          render={({ message }) => <p>{message}</p>}
+                        />
                       </div>
+                      {urlId !== undefined && (
+                        <div className="mb-3">
+                          <label className="form-label fs-6">Assigned ID</label>
+                          <input
+                            defaultValue={urlId}
+                            type="text"
+                            className="form-control"
+                            disabled
+                          />
+                        </div>
+                      )}
                       <div className="mb-3">
                         <span className="form-label fs-6">Gender</span>
                         <div className="form-check">
@@ -151,8 +169,11 @@ function Register() {
                           />
                           <label className="form-check-label">Female</label>
                         </div>
-                        <ErrorMessage errors={errors} name="gender" render={({ message }) => <p>{message}</p>} />
-                       
+                        <ErrorMessage
+                          errors={errors}
+                          name="gender"
+                          render={({ message }) => <p>{message}</p>}
+                        />
                       </div>
                       <div className="mb-3">
                         <label className="form-label fs-6">Mobile</label>
@@ -184,9 +205,16 @@ function Register() {
                             className="form-control"
                           />
                         </div>
-                        <ErrorMessage errors={errors} name="phone_indicative" render={({ message }) => <p>{message}</p>} />
-                        <ErrorMessage errors={errors} name="phone" render={({ message }) => <p>{message}</p>} />
-                       
+                        <ErrorMessage
+                          errors={errors}
+                          name="phone_indicative"
+                          render={({ message }) => <p>{message}</p>}
+                        />
+                        <ErrorMessage
+                          errors={errors}
+                          name="phone"
+                          render={({ message }) => <p>{message}</p>}
+                        />
                       </div>
                       <div className="mb-3">
                         <label className="form-label fs-6">Email address</label>
@@ -197,8 +225,11 @@ function Register() {
                           type="email"
                           className="form-control"
                         />
-                        <ErrorMessage errors={errors} name="email" render={({ message }) => <p>{message}</p>} />
-                       
+                        <ErrorMessage
+                          errors={errors}
+                          name="email"
+                          render={({ message }) => <p>{message}</p>}
+                        />
                       </div>
                       <div className={Pwderr ? "alert-warning p-4 my-2" : ""}>
                         {Pwderr && (
@@ -218,7 +249,8 @@ function Register() {
                           ></i>
                           <input
                             {...register("password", {
-                              required: "This is required",min:8
+                              required: "This is required",
+                              min: 8,
                             })}
                             value={Password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -226,8 +258,11 @@ function Register() {
                             className="form-control"
                             required
                           />
-                          <ErrorMessage errors={errors} name="password" render={({ message }) => <p>{message}</p>} />
-                       
+                          <ErrorMessage
+                            errors={errors}
+                            name="password"
+                            render={({ message }) => <p>{message}</p>}
+                          />
                         </div>
                         <div className="mb-3">
                           <label className="form-label fs-6">
@@ -250,16 +285,18 @@ function Register() {
                         {/* {JSON.stringify(errors, null, 2)} */}
                         {/* {...errors} */}
                       </div>
-                      <div className="mb-3">
-                        <label
-                          onClick={() =>
-                            setcompanitabvisible(!companitabvisible)
-                          }
-                          className=" btn-sm btn btn-dark fs-6"
-                        >
-                          Create company
-                        </label>
-                      </div>
+                      {urlId === undefined && (
+                        <div className="mb-3">
+                          <label
+                            onClick={() =>
+                              setcompanitabvisible(!companitabvisible)
+                            }
+                            className=" btn-sm btn btn-dark fs-6"
+                          >
+                            Create company
+                          </label>
+                        </div>
+                      )}
                       {companitabvisible && (
                         <div className="alert-warning shadow-sm p-4 mb-2 rounded">
                           <div className="mb-3">
@@ -268,8 +305,12 @@ function Register() {
                               {...register("company_label")}
                               type="text"
                               className="form-control"
-                            /><ErrorMessage errors={errors} name="company_label" render={({ message }) => <p>{message}</p>} />
-                       
+                            />
+                            <ErrorMessage
+                              errors={errors}
+                              name="company_label"
+                              render={({ message }) => <p>{message}</p>}
+                            />
                           </div>
 
                           <div className="mb-3">
@@ -281,8 +322,11 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
-                            <ErrorMessage errors={errors} name="company_description" render={({ message }) => <p>{message}</p>} />
-                       
+                            <ErrorMessage
+                              errors={errors}
+                              name="company_description"
+                              render={({ message }) => <p>{message}</p>}
+                            />
                           </div>
 
                           <div className="mb-3">
@@ -292,8 +336,11 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
-                            <ErrorMessage errors={errors} name="company_ein" render={({ message }) => <p>{message}</p>} />
-                       
+                            <ErrorMessage
+                              errors={errors}
+                              name="company_ein"
+                              render={({ message }) => <p>{message}</p>}
+                            />
                           </div>
                           <div className="mb-3">
                             <label className="form-label fs-6">RCCM</label>
@@ -302,8 +349,11 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
-                            <ErrorMessage errors={errors} name="company_rccm" render={({ message }) => <p>{message}</p>} />
-                       
+                            <ErrorMessage
+                              errors={errors}
+                              name="company_rccm"
+                              render={({ message }) => <p>{message}</p>}
+                            />
                           </div>
 
                           <div className="mb-3">
@@ -313,8 +363,11 @@ function Register() {
                               type="text"
                               className="form-control"
                             />
-                            <ErrorMessage errors={errors} name="company_ifu" render={({ message }) => <p>{message}</p>} />
-                       
+                            <ErrorMessage
+                              errors={errors}
+                              name="company_ifu"
+                              render={({ message }) => <p>{message}</p>}
+                            />
                           </div>
                           <div className="mb-3">
                             <label className="form-label fs-6">Role</label>
@@ -331,8 +384,11 @@ function Register() {
                                 </option>
                               ))}
                             </select>
-                            <ErrorMessage errors={errors} name="user_role" render={({ message }) => <p>{message}</p>} />
-                       
+                            <ErrorMessage
+                              errors={errors}
+                              name="user_role"
+                              render={({ message }) => <p>{message}</p>}
+                            />
                           </div>
                         </div>
                       )}
@@ -353,7 +409,7 @@ function Register() {
                 </div>
               </div>
             </div>
-            <Link className="text-primary" href="/auth/signin" title="Login">
+            <Link className="text-primary" href="/auth/login" title="Login">
               Already registered?{" "}
               <span className="text-primary text-decoration-underline">
                 Log In

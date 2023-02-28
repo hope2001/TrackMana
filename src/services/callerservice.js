@@ -6,7 +6,7 @@ import { accountService } from './accountServices';
 
 // Paramétrage de base d'axios
 const Axios = axios.create({
-    baseURL: 'https://ttapi.bourjon.com'
+    baseURL: 'https://ttapi.labourd.tech'
 })
 
 
@@ -15,7 +15,7 @@ Axios.interceptors.request.use(request => {
 
     if(accountService.isLogged()){
         request.headers.Authorization = 'Bearer '+accountService.getToken()
-        // request.headers.ContentType = 'application/json; charset=UTF-8'
+        // request.headers.ContentType = 'application/json; charset=UTF-8':
     }
 
     // request.headers.AccessControlAllowOrigin = api;
@@ -31,7 +31,7 @@ Axios.interceptors.response.use(response => {
     }
    else if(error.response.status === 403){
         accountService.logout()
-        alert("Votre session  à expirée")
+        // alert("Votre session  à expirée")
         Router.push('/auth/login')
     }else{
         return Promise.reject(error)
