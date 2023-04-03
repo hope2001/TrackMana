@@ -1,10 +1,19 @@
 import { ApiContext } from "@/src/controller/apiContext";
+import { RequestToResponse } from "@/src/controller/requestParser";
+import { ProjectService } from "@/src/services/Projects/projects_service";
 import { TasksService } from "@/src/services/Projects/tasksServices";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect,useState } from "react";
 import { useForm } from "react-hook-form";
 
 function CreateTask(props) {
     
+  const [verifyProject, setVerifyProject] = useState("");
+  const [projectsMembers, setprojectsMembers] = useState([]);
+    const handleSelectChange = (e) => {
+        // alert(e.target.value);
+        setVerifyProject(e.target.value);
+      };
+
     const { showToastMessage, TCategories, projectsList } = useContext(ApiContext);
     const priorities = ['Faible', 'Moyen', 'Important', 'Urgent', 'Très urgent']
     const {
@@ -13,6 +22,36 @@ function CreateTask(props) {
          formState,
         formState: { errors },
       } = useForm({ mode: "onChange" });
+
+      useEffect(() => {
+        (async () => {
+          if (props.show) {
+            let body = { ids: [parseInt(verifyProject)] };
+            if(props.this !== undefined){
+                 body = { ids: [parseInt(props.this)] }; 
+            }
+            // alert(JSON.stringify(body));
+            const { resultStatus, result, errorStatus, errorMessage } =
+              await RequestToResponse(
+                await ProjectService.getAllProjectsMembers(body)
+              );
+            console.warn(
+              "project members",
+              resultStatus,
+              result,
+              errorStatus,
+              errorMessage
+            );
+    
+            if (result !== null && resultStatus === "OK") {
+              // alert(result)
+              setprojectsMembers(result);
+              // console.warn(result);
+            } else alert("No result");
+          }
+        })();
+      }, [verifyProject, props.this,props.show]);
+
 
       const onSubmit = async (data) => {
         // alert(JSON.stringify(data))
@@ -77,7 +116,8 @@ function CreateTask(props) {
         <form onSubmit={handleSubmit(onSubmit)} className="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
         <div className="modal-content">
             <div className="modal-header">
-                <h5 className="modal-title  fw-bold" id="createprojectlLabel"> Create Task</h5>
+                <h5 className="modal-title  fw-bold" id="createprojectlLabel"> Create Task {props.this !== undefined && props.this}</h5>
+                
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={()=>(props.setshow(false))}></button>
             </div>
             <div className="modal-body">
@@ -87,7 +127,7 @@ function CreateTask(props) {
                 </div>
                 { (props.this === "undefined" && props.show) && <div className="mb-3">
                     <label  className="form-label">Project Name</label>
-                    <select {...register("projectid")} className="form-select" aria-label="Default select Project Category">
+                    <select {...register("projectid")} onChange={(e) => handleSelectChange(e)} className="form-select" aria-label="Default select Project Category">
                         {
                             projectsList.map((project, index)=>(
 
@@ -128,7 +168,23 @@ function CreateTask(props) {
                     <div className="col-sm">
                         <label  className="form-label">Task Assign Person</label>
                         <select {...register("assigned_employee")} className="form-select" multiple aria-label="Default select Priority">
-                            {/* <option value="">Ryan Nolan</option> */}
+                        {projectsMembers.length > 0 !== undefined &&
+                        projectsMembers.map((member, index) => (
+                          member.members.map((item, index1)=>(
+                          <option key={index1} value={item.User.id}>
+                            {item.User.firstName + " "}
+                            {item.User.lastName}
+                          </option>
+                          ))
+                          // JSON.stringify(member)
+                          // member.map((item, index1)=>(
+                          //   <option key={index1} value={item.id}>
+                          //   {item.User.firstName + " "}
+                          //   {item.User.lastName}
+                          // </option>
+                          // ))
+
+                        ))}
                         </select>
                     </div>
                 </div>

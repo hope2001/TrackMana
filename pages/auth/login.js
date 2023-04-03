@@ -3,19 +3,20 @@ import Authlayout from "./Authlayout";
 import { useRef, useState, useEffect, useContext } from "react";
 import countries from "../../data/country-code";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
+// import {useRouter} from "react"
 import { api, appkey } from "@/src/services/apip";
 import { accountService } from "@/src/services/accountServices";
 import { ApiContext } from "@/src/controller/apiContext";
 
-function Login() {
+function Login() { 
   const [email, setEmail] = useState("");
   const [device, setDevice] = useState("");
   const [showpwd, setshowpwd] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [toggletab, settoggletab] = useState("email");
-
+  const Router = useRouter()
   const {age, showToastMessage } = useContext(ApiContext);
 
   const {
@@ -64,18 +65,23 @@ function Login() {
         console.log(res.data);
         console.warn(res);
         accountService.saveToken(res.data.access_token);
-        showToastMessage("Logged with Success", "success")
+        console.log('pushing');
+        // showToastMessage("Logged with Success", "success")
         // * reset the inputs fields
         resetField("password");
         resetField("email");
         resetField2("phone_indicative");
         resetField2("phone");
         resetField2("password");
+        console.log(Router);
         Router.push("/");
+        
       })
       .catch((error) => {
          if(error.response) console.error(error.response.data.message);
-         if(error.response) alert(error.response.data.message) });
+         if(error.response) alert(error.response.data.message) 
+        });
+        
   };
 
   return (
@@ -83,10 +89,10 @@ function Login() {
       <div className="row g-0 border border-secondary rounded-3 mt-2 mt-md-0">
         <div className="col-lg-6 d-flex justify-content-center align-items-center auth-h100 bg-secondary py-2 py-md-0">
           <div className="d-flex flex-column p-2">
-            <h1>Account Login</h1>
+            <h1 className="text-light">Login page</h1>
             <span>
-              Welcome back! Log In with your Email, Phone number or QR code
-              {typeof toggletab} 
+              Bienvenue! Connectez vous avec votre Email, Numéro téléphonique ou QR code
+
             </span>
             <ul className="nav nav-pills mt-4" role="tablist">
               <li className="nav-item">
@@ -126,7 +132,7 @@ function Login() {
                     <form key={1} onSubmit={handleSubmit(handleLogin)}>
                       <div className="mb-3">
                         <label className="form-labuserdeviceel fs-6 ">
-                          Email address
+                          Addresse Mail
                         </label>
                         <input
                           type="email"
@@ -136,11 +142,11 @@ function Login() {
                           })}
                         />
                         {errors.email && (
-                          <p className="text-danger">This is required</p>
+                          <p className="text-danger">Champ obligatoire</p>
                         )}
                       </div>
                       <div className="mb-3">
-                        <label className="form-label fs-6">Password</label>{" "}
+                        <label className="form-label fs-6">Mot de passe</label>{" "}
                         <i
                           onClick={() => setshowpwd(!showpwd)}
                           className={
@@ -159,7 +165,7 @@ function Login() {
                         />
                         {errors.password && (
                           <p className="text-danger">
-                            password required and must be 8 characters at least{" "}
+                           Le mot de passe est obligatoirement composé de 8 lettres minimun{" "}
                           </p>
                         )}
                       </div>
@@ -171,7 +177,7 @@ function Login() {
                         className="btn btn-primary text-uppercase py-2 fs-5 w-100 mt-2"
                         disabled={!isValid}
                       >
-                        log in
+                        Se Connecter
                       </button>
                     </form>
                   </div>
@@ -213,12 +219,12 @@ function Login() {
                             className="form-control"
                           />
                           {errors2.phone && (
-                            <p className="text-danger">phone number required</p>
+                            <p className="text-danger">Numéro de téléphone requis</p>
                           )}
                         </div>
                       </div>
                       <div className="mb-3">
-                        <label className="form-label fs-6">Password</label>{" "}
+                        <label className="form-label fs-6">Mot de passe</label>{" "}
                         <i
                           onClick={() => setshowpwd(!showpwd)}
                           className={
@@ -262,14 +268,14 @@ function Login() {
               title="Reset password"
               className="text-primary text-decoration-underline"
             >
-              Forgot password?
+              Mot de passe oublié?
             </Link>
             <Link
               href="/auth/register"
               title="Register"
               className="text-primary text-decoration-underline"
             >
-              Register now
+              S'inscrire
             </Link>
           </div>
         </div>
@@ -281,7 +287,7 @@ function Login() {
               alt="#"
               className="img-fluid my-4"
             />
-            <h4>Log in with QR code</h4>
+            <h4>Se connecter via QR code</h4>
             <p>
               Scan this code with the{" "}
               <span className="text-primary">timetracker mobile app</span>

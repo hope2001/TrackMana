@@ -64,8 +64,7 @@ function ProjectDetails({ params }) {
       }
     })();
 
-    
-  }, [asPath]);
+      }, [asPath,thisProject ]);
 
   useEffect(()=>{
     

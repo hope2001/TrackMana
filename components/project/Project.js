@@ -52,7 +52,7 @@ function Project({ json, status, thisData, setthisData }) {
   useEffect(()=>{
     if(show){
       // alert(show)
-      alert(JSON.stringify(tothis))
+      // alert(JSON.stringify(tothis))
       // console.log('tothis -+++++++++++>', tothis);
     }
     

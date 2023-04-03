@@ -24,6 +24,7 @@ const ApiProvider = ({ children }) => {
   const [companies, setcompanies] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   // const activecompany = useRef('')
+  const [Activecompany, setActivecompany] = useState({}); // pour selectionner l'id de l'entreprise à effet de contexte general
   const [activecompany, setactivecompany] = useState(""); // pour selectionner l'id de l'entreprise à effet de contexte general
   const [loggedUser, setloggedUser] = useState({});
 
@@ -142,6 +143,13 @@ const ApiProvider = ({ children }) => {
       })();
     }, []);
 
+    useEffect(() => {
+      ( () => {
+      setActivecompany( JSON.parse(localStorage.getItem('TTActiveCompany')))
+     
+    })();
+  },[]);
+
   // fetch projects members
   // function fetchProjectMember(id) {
   //   alert(id)
@@ -180,6 +188,7 @@ const ApiProvider = ({ children }) => {
         projectsList,
         isLoading,
         loggedUser,
+        Activecompany,
       }}
     >
       {children}

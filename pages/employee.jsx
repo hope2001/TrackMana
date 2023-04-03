@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 
 // accountService.getConnectedUserInfo()
 function Employee() {
-  const { companies, activecompany, setactivecompany, showToastMessage } =
+  const { companies, Activecompany, setactivecompany, showToastMessage } =
     useContext(ApiContext);
   const [usersList, setusersList] = useState([]);
   const [userisLoading, setuserisLoading] = useState(true);
@@ -36,13 +36,13 @@ function Employee() {
   let body = {};
   useEffect(() => {
     (async () => {
-      if (activecompany) {
+      if (Activecompany) {
         body = {
-          companyId: activecompany.id,
+          companyId: Activecompany.id,
         };
       }
 
-      alert(JSON.stringify(body));
+      // alert(JSON.stringify(body));
 
       const { resultStatus, result, errorStatus, errorMessage } =
         await RequestToResponse(await employeeService.getAllEmployees(body));
@@ -52,7 +52,7 @@ function Employee() {
         setusersList(result), setuserisLoading(false);
       }
     })();
-  }, []);
+  },[Activecompany]);
   function modalForEdit(employee) {
     setforEdit([employee]);
     settoggleEdit(true);

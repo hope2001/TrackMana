@@ -13,7 +13,7 @@ function Header({
 }) {
   const { companies, activecompany, setactivecompany, isLoading, loggedUser } =
     useContext(ApiContext);
-    const [show, setshow]=useState(false)
+  const [show, setshow] = useState(false);
   return (
     <div className="header">
       <nav className="navbar py-4">
@@ -21,7 +21,8 @@ function Header({
           {/* <!-- header rightbar icon --> */}
           <div className="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
             <div className="dropdown notifications">
-              <a className="nav-link dropdown-toggle pulse"
+              <a
+                className="nav-link dropdown-toggle pulse"
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -86,7 +87,7 @@ function Header({
                   </div>
                   <a className="card-footer text-center border-top-0" href="#">
                     {" "}
-                    View all notifications
+                    Voir toutes les notifications
                   </a>
                 </div>
               </div>
@@ -118,7 +119,7 @@ function Header({
                     </li>
                     <li>
                       <Link href="#" className="">
-                        <img src="/assets/images/flag/FR.png" alt="" /> French
+                        <img src="/assets/images/flag/FR.png" alt="" /> Français
                       </Link>
                     </li>
                     <li>
@@ -137,7 +138,7 @@ function Header({
             </div>
             <div className="dropdown companies-list ml-2 ml-sm-3 d-flex align-items-center">
               <a
-                title="Your Companies"
+                title="Vos Entreprises"
                 aria-label="companiesList"
                 className="nav-link dropdown-toggle pulse p-0"
                 href="#"
@@ -251,7 +252,7 @@ function Header({
                           d="M21.67,17.34C21.22,18.27,20.29,19,19,19s-2.22-0.73-2.67-1.66l-1.79,0.891C15.31,19.78,16.88,21,19,21  s3.69-1.22,4.46-2.77L21.67,17.34z M15,10.85c-0.61,0-1.1,0.38-1.1,1.65s0.49,1.65,1.1,1.65s1.1-0.38,1.1-1.65S15.61,10.85,15,10.85  z M23,10.85c-0.61,0-1.1,0.38-1.1,1.65s0.489,1.65,1.1,1.65s1.1-0.38,1.1-1.65S23.61,10.85,23,10.85z M35.99,36.86  c-0.92-6.471-3.33-7.46-6.65-8.83c-0.43-0.17-0.87-0.36-1.34-0.561c-0.19-0.09-0.38-0.17-0.58-0.26c-1.32-0.61-2.14-1.05-2.64-1.45  c-0.521-0.42-0.7-0.8-0.761-1.29C26.55,22.74,28,19.8,28,17V4.56l-1.18,0.21C26.1,4.91,25.58,5,25.05,5  c-1.439,0-2.37-0.24-3.35-0.49C20.71,4.26,19.68,4,18.21,4c-1.54,0-2.94,0.69-3.83,1.9l1.61,1.18C16.5,6.39,17.31,6,18.21,6  c1.22,0,2.08,0.22,3,0.45C22.22,6.71,23.36,7,25.05,7c0.32,0,0.63-0.02,0.95-0.06V17c0,3.44-2.62,7-7,7s-7-3.56-7-7V6.29  C12.23,5.59,13.61,2,18.21,2c1.61,0,2.76,0.28,3.88,0.55C23.06,2.78,23.98,3,25.05,3C26.12,3,27.19,2.74,28,2.47V0.34  C27.34,0.61,26.17,1,25.05,1c-0.83,0-1.6-0.18-2.49-0.4C21.38,0.32,20.05,0,18.21,0c-5.24,0-7.64,3.86-8.18,5.89L10,17  c0,2.8,1.45,5.74,3.98,7.47c-0.06,0.49-0.24,0.87-0.76,1.29c-0.5,0.4-1.32,0.84-2.64,1.45c-0.2,0.09-0.39,0.18-0.58,0.26  c-0.47,0.2-0.91,0.391-1.34,0.561c-3.32,1.37-5.73,2.359-6.65,8.83L1.85,38h34.3L35.99,36.86z M4.18,36c0.81-4.3,2.28-4.9,5.24-6.12  c0.62-0.25,1.29-0.53,2-0.86c1.09-0.5,2.01-0.949,2.73-1.479c0.8-0.56,1.36-1.22,1.64-2.12C16.76,25.78,17.83,26,19,26  s2.24-0.22,3.21-0.58c0.28,0.9,0.84,1.561,1.64,2.12c0.721,0.53,1.641,0.979,2.73,1.479c0.71,0.33,1.38,0.61,2,0.86  c2.96,1.22,4.43,1.83,5.24,6.12H4.18z"
                         ></path>
                       </svg>
-                      Profile Page
+                      Profile 
                     </Link>
                     <Link
                       onClick={() => (logout = accountService.logout())}
@@ -331,7 +332,7 @@ function Header({
           <div className=" order-0 col-lg-4 col-md-6 col-sm-12 col-12 mb-3 mb-md-0 d-flex align-items-center">
             <a
               className="menu-toggle-option me-3 text-primary d-flex align-items-center"
-              onClick={()=>setshow(!show) }
+              onClick={() => setshow(!show)}
               title="Menu Option"
             >
               <svg
@@ -352,11 +353,11 @@ function Header({
               <input
                 className="form-control"
                 type="text"
-                placeholder="Enter your search key word"
+                placeholder="Rechercher quelque chose"
               />
               <div className="card border-0 shadow rounded-3 search-result slidedown">
                 <div className="card-body text-start">
-                  <small className="dropdown-header">Recent searches</small>
+                  <small className="dropdown-header">Recherche récente</small>
                   <div className="dropdown-item bg-transparent text-wrap my-2">
                     <Link className="badge bg-primary" href="">
                       Pixelwibes <i className="fa fa-search ms-1"></i>
@@ -378,8 +379,8 @@ function Header({
       {/* <!-- topmain menu --> */}
       <div className="container-xxl position-relative">
         <div className="row">
-          <div className="col-md-12"> 
-                <Topbar show={show} setshow={setshow}/> 
+          <div className="col-md-12">
+            <Topbar show={show} setshow={setshow} />
           </div>
         </div>
       </div>
@@ -394,6 +395,10 @@ function YourCompanies({
   activecompany,
   setactivecompany,
 }) {
+  const SetActiveCompany = (data) => {
+    localStorage.setItem("TTActiveCompany", JSON.stringify(data));
+    alert("check");
+  };
   const act = (params) => {
     setactivecompany(params);
   };
@@ -401,47 +406,59 @@ function YourCompanies({
     <div className="list-group m-2 bg-dak ">
       {isLoading ? (
         <Loader />
-      ) : companies.length > 0 ? ( 
-      <form >{
-        companies.map((company, index) => (<div key={index}>
-          <label
-            htmlFor={`#id${company.id}-${index}`}
-            onClick={() => (
-              alert("company" + JSON.stringify(company)),
-              setactivecompany(company.id),
-              alert("activecompany" + JSON.stringify(activecompany)), console.log(company))}
-            key={index}
-            href=""
-            style={{cursor:"pointer"}}
-            className="list-group-ite list-group-item-actio d-flex justify-content-between align-items-center my-2"
-          >
-            <img
-              className=" lg rounded-circle Image-thumbnail"
-              src={api + company.logo}
-              alt="profile"
-              quality={60}
-              style={{ width: "30px", height: "30px" }}
-            />
-            <span className="mx-2" style={{fontSize:"14px"}}>
-              {company.label.toUpperCase()} ({company.id})
-              <strong className="text-danger mx-1" style={{fontSize:"14px"}}>
-                [&nbsp; {company.Employees.find(user => user.userId === accountService.getConnectedUserInfo().id).type}&nbsp;]
-              </strong>{" "}
-            </span>
-            <span className="mx-2">
-              {" "}
-              <input
+      ) : companies.length > 0 ? (
+        <span3>
+          {companies.map((company, index) => (
+            <div key={index}>
+              <hr
+                key={index}
+                className={index !== 1 ? `d-none` : "pt-1 rounded"}
+              />
+              <label
+                htmlFor={`#id${company.id}-${index}`}
+                onClick={() => SetActiveCompany(company)}
+                key={index}
+                style={{ cursor: "pointer" }}
+                className="list-group-ite list-group-item-action d-flex justify-content-between align-items-center my-0"
+              >
+                <img
+                  className=" lg rounded-circle Image-thumbnail"
+                  src={api + company.logo}
+                  alt="profile"
+                  quality={60}
+                  style={{ width: "30px", height: "30px" }}
+                />
+                <span className="mx-2" style={{ fontSize: "14px" }}>
+                  {company.label.toUpperCase()}
+                  <strong
+                    className="text-primary mx-1"
+                    style={{ fontSize: "13px" }}
+                  >
+                    [&nbsp;{" "}
+                    {
+                      company.Employees.find(
+                        (user) =>
+                          user.userId ===
+                          accountService.getConnectedUserInfo().id
+                      ).type
+                    }
+                    &nbsp;]
+                  </strong>{" "}
+                </span>
+                <span className="mx-2">
+                  {" "}
+                  {/* <input
                 type="radio"
                 defaultChecked={index === 0}
                 // defaultChecked={company.id === activecompany ? true : false}
                 name="activecompany"
-                id={`id${company.id}-${index}`}
-              />
-            </span>
-          </label>
-          <hr/></div>
-        ))
-      } </form>) : (
+                id={`id${company.id}-${index}`}/> */}
+                </span>
+              </label>
+            </div>
+          ))}{" "}
+        </span3>
+      ) : (
         <span className="p-3 font-weight-bold text-center alert-primary text-primary">
           Aucune entreprise disponible
         </span>
@@ -449,4 +466,3 @@ function YourCompanies({
     </div>
   );
 }
-

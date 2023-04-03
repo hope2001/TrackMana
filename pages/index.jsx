@@ -23,7 +23,7 @@ const inter = Inter({ subsets: ['latin'] })
   // }
  
  
-  const {age, name, happyBirthday, activecompany} = useContext(ApiContext);
+  const {age, name, happyBirthday, activecompany,Activecompany} = useContext(ApiContext);
   const [test, settest] = useState(true);
   const [image, setimage] = useState('');
   const [person, setperson] = useState([])
@@ -58,6 +58,8 @@ const inter = Inter({ subsets: ['latin'] })
 <button onClick={()=> handleScreenshot()}>Take Screenshot</button>
 <img src={image} className="w-50 h-50"/>
 {/* {JSON.stringify(person)} */}
+"dfdf"
+{JSON.stringify(Activecompany)}
 </Layout>
   )
 }

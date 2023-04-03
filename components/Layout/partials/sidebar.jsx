@@ -30,39 +30,39 @@ function Sidebar({toggleside}) {
                     <li><Link className="m-link active" href="/"><i className="icofont-home fs-5"></i> <span>Dashboard</span></Link></li>
                     <li className="collapsed">
                         <a className="m-link" data-bs-toggle="collapse" data-bs-target="#menu-report" onClick={() =>setcol1(!col1)}>
-                            <i className="icofont-chart-pie fs-5"></i><span>Reports</span><span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
+                            <i className="icofont-chart-pie fs-5"></i><span>Rapports</span><span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col1 ? "":"collapse"} `} id="menu-report">
-                            <li><Link className="ms-link" href="/Reports/attendance">Attendance</Link></li>
+                            <li><Link className="ms-link" href="/Reports/attendance">Fiche de présence</Link></li>
                             <li><Link className="ms-link" href="/hourstrack">Hours Tracked</Link></li>
                             <li><Link className="ms-link" href="/timeline">Timeline</Link></li>
-                            <li><Link className="ms-link" href="/employee-logs">Employee Logs</Link></li>
+                            <li><Link className="ms-link" href="/employee-logs">Activités</Link></li>
                         </ul>
                     </li>
                     <li><Link className="m-link" href="screencasts.html"><i className="icofont-computer fs-5"></i> <span>Screencasts</span></Link></li>
                     <li className="collapsed">
                         <a className="m-link" data-bs-toggle="collapse" data-bs-target="#menu-order" onClick={() =>setcol2(!col2)}>
-                            <i className="icofont-tasks fs-5"></i> <span>Projects</span> <span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
+                            <i className="icofont-tasks fs-5"></i> <span>Projets</span> <span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col2 ? "":"collapse"} `} id="menu-order">
-                            <li><Link className="ms-link" href="/projects">Project List</Link></li>
-                            <li><Link className="ms-link" href="/tasks">Tasks </Link></li>
-                            <li><Link className="ms-link" href="/tasks">Task Progress</Link></li>
-                            <li><Link className="ms-link" href="/tickets">Ticket List</Link></li>
+                            <li><Link className="ms-link" href="/projects">Liste des projets</Link></li>
+                            <li><Link className="ms-link" href="/tasks">Taches </Link></li>
+                            <li><Link className="ms-link" href="/tasks">Progression des taches</Link></li>
+                            <li><Link className="ms-link" href="/tickets">Tickets</Link></li>
                             {/* <li><Link className="ms-link" href="/ticket-detail">Ticket Details</Link></li> */}
                             <li><Link className="ms-link" href="/timesheet">Timesheet</Link></li>
                         </ul>
                     </li>
                     <li className="collapsed">
                         <a className="m-link" data-bs-toggle="collapse" data-bs-target="#menu-company" onClick={() =>setcol3(!col3)}>
-                            <i className="icofont-home fs-5"></i> <span>Companies</span> <span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
+                            <i className="icofont-home fs-5"></i> <span>Entreprises</span> <span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col3 ? "":"collapse"} `} id="menu-company">
-                            <li><Link className="ms-link" href="/companies/companiesList">My Companies</Link></li>
-                            <li><Link className="ms-link" href="/employee">Employee</Link></li>
+                            <li><Link className="ms-link" href="/companies/companiesList">Entreprises</Link></li>
+                            <li><Link className="ms-link" href="/employee">Employés</Link></li>
                             <li><Link className="ms-link" href="/companies/validations">Validations</Link></li>
                             <li><Link className="ms-link" href="/companies/departement">Departements</Link></li>
                         </ul>
@@ -73,22 +73,22 @@ function Sidebar({toggleside}) {
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col4 ? "":"collapse"} `} id="app">
-                            <li><Link className="ms-link" href="/categories">Categories</Link></li>
-                            <li><Link className="ms-link" href="/calendar">Calandar</Link></li>
+                            <li><Link className="ms-link" href="/categories">Catégories</Link></li>
+                            <li><Link className="ms-link" href="/calendar">Calandrier</Link></li>
                             <li><Link className="ms-link" href="/chat"> Communication</Link></li>
                         </ul>
                     </li>
                     <li className="divider mt-2 py-2 text-uppercase"><small>Ready UI</small></li>
                     <li className="collapsed">
                         <a className="m-link" data-bs-toggle="collapse" data-bs-target="#app" onClick={() =>setcol5(!col5)}>
-                            <i className="bi bi-home fs-5"></i> <span>Auth</span> <span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
+                            <i className="bi bi-home fs-5"></i> <span>Connection</span> <span className="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
                         </a>
                         {/* <!-- Menu: Sub menu ul --> */}
                         <ul className={`sub-menu ${col5 ? "":"collapse"} `} id="app">
                             <li><Link className="ms-link" href="/auth/login">Login</Link></li>
                             <li><Link className="ms-link" href="/auth/register"> Register</Link></li>
                             <li><Link className="ms-link" href="/auth/login"> Rlog2</Link></li>
-                            <li><Link className="ms-link" href="" onClick={(e)=>(e.preventDefault(), accountService.logout())} > Logout</Link></li>
+                            <li className="bg-danger px-2 rounded"><Link className="ms-link " href="" onClick={(e)=>(e.preventDefault(), accountService.logout())} > Déconnection</Link></li>
                         </ul>
                     </li>
                     
